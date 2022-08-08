@@ -53,7 +53,7 @@ router.post('/role', isadmin,  (req, res) => {
     User.updateOne({ _id: userid }, {ser: {isUser: true}})
   }
 
-  res.status(true).send({Message: 'Role successfully added'})
+  res.status(200).send({Message: 'Role successfully added', status: true})
 })
 
 module.exports = router;
