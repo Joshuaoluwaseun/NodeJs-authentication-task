@@ -34,14 +34,26 @@ router.post('/',  async (req, res) => {
   });
 })
 
-//Add user role, it should take in userid, and the role type
-// google how to validate strings
-//check the role type and update the right boolean type.
+router.post('/role', isadmin,  (req, res) => {
+  const { roleType,  userid } = req.body
 
-// function validateRole() {
-//   const schema = {
-//     user: 
-//   }
-// }
+  if (roleType.toLowerCase() === 'admin') {
+    User.updateOne({ _id: userid}, {$set: {isadmin: true}})
+  }
+
+  if (roleType.toLowerCase() === 'manager') {
+    User.updateOne({ _id: userid}, {set: {isManager: true}})
+  }
+
+  if (roleType.toLowerCase() === 'staff') {
+    User.updateOne({_id: userid }, {set: {isStaff: true}})
+  }
+
+  if (roleType.toLowerCase() === 'user') {
+    User.updateOne({ _id: userid }, {ser: {isUser: true}})
+  }
+
+  res.status(true).send({Message: 'Role successfully added'})
+})
 
 module.exports = router;
