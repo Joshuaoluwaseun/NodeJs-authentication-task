@@ -42,15 +42,15 @@ router.post('/role', isadmin,  (req, res) => {
   }
 
   if (roleType.toLowerCase() === 'manager') {
-    User.updateOne({ _id: userid}, {set: {isManager: true}})
+    User.updateOne({ _id: userid}, {$set: {isManager: true}})
   }
 
   if (roleType.toLowerCase() === 'staff') {
-    User.updateOne({_id: userid }, {set: {isStaff: true}})
+    User.updateOne({_id: userid }, {$set: {isStaff: true}})
   }
 
   if (roleType.toLowerCase() === 'user') {
-    User.updateOne({ _id: userid }, {ser: {isUser: true}})
+    User.updateOne({ _id: userid }, {$set: {isUser: true}})
   }
 
   res.status(200).send({Message: 'Role successfully added', status: true})
