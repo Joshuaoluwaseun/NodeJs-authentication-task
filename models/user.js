@@ -41,7 +41,13 @@ const userSchema = new mongoose.Schema({
 },{timestamps: true})
 
 userSchema.methods.generateAuthToken = function() {
-    const token = jwt.sign({_id: this._id, isAdmin: this.isAdmin}, process.env.todo_jwtPrivatekey, { expiresIn: 8000})
+    const token = jwt.sign({
+        _id: this._id,
+        isAdmin: this.isAdmin,
+        isManager: this.isManager,
+        isStaff: this.isStaff,
+        isUser: this.isUser
+        }, process.env.todo_jwtPrivatekey, { expiresIn: 8000})
     return token
 }
 
