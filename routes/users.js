@@ -3,7 +3,7 @@ const auth = require('../middleware/auth')
 const _ = require('lodash')
 const bcrypt = require('bcrypt');
 const router = express.Router()
-const {User, validate} = require('../models/user');
+const {User, validate, validateRole} = require('../models/user');
 
 router.get('/', auth, async (req, res) => {
     const user = await User.find();
@@ -35,6 +35,9 @@ router.post('/',  async (req, res) => {
 })
 
 router.post('/role', isadmin,  (req, res) => {
+  const { error } = validateRole(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
   const { roleType,  userid } = req.body
 
   if (roleType.toLowerCase() === 'admin') {

@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         minlength: 5,
         maxlength: 1023
     },
-    isadmin: {
+    isAdmin: {
         type: Boolean,
         default: 0
     },
@@ -63,5 +63,14 @@ function validateUser(user) {
     return Joi.validate(user, schema);
 }
 
+function validateRole(req) {
+    const schema = {
+      roleType: Joi.string().isValid('admin',  'manager', 'staff', 'user')
+    }
+  
+    return Joi.validate(req, schema);
+  }
+  
 exports.User = User;
 exports.validate = validateUser ;
+exports.validateRole = validateRole ;
